@@ -1,0 +1,9 @@
+{
+  "name": "Mary Kay",
+  "short_name": "MK",
+  "description": "Mary Kay test site",
+  "lang": "en",
+  "start_url": "/",
+  "display": "browser",
+  "orientation": "landscape-primary"
+}

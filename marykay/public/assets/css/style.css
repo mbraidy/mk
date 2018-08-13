@@ -1,0 +1,676 @@
+body {
+    /* overflow:hidden; */
+}
+* {box-sizing: border-box;}
+
+/* style the container */
+.container {
+  position: relative;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px 0 30px 0;
+  overflow: hidden;
+}
+
+/* style inputs and link buttons */
+input, .btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  margin: 5px 0;
+  opacity: 0.85;
+  display: inline-block;
+  font-size: 17px;
+  line-height: 20px;
+  text-decoration: none; /* remove underline from anchors */
+}
+
+input:hover, .btn:hover {opacity: 1;}
+
+/* add appropriate colors to fb, twitter and google buttons */
+.fb {
+  background-color: #3B5998;
+  color: white;
+}
+
+.twitter {
+  background-color: #55ACEE;
+  color: white;
+}
+
+.google {
+  background-color: #dd4b39;
+  color: white;
+}
+
+/* style the submit button */
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {background-color: #45a049;}
+
+/* Two-column layout */
+.col {
+  float: left;
+  width: 50%;
+  margin: auto;
+  padding: 0 50px;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* vertical line */
+.vl {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  border: 2px solid #ddd;
+  height: 175px;
+}
+
+/* text inside the vertical line */
+.inner {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  padding: 8px 10px;
+}
+
+/* hide some text on medium and large screens */
+.hide-md-lg {display: none;}
+
+/* bottom container */
+.bottom-container {
+  text-align: center;
+  background-color: #666;
+  border-radius: 0px 0px 4px 4px;
+}
+
+/* The message box is shown when the user clicks on the password field */
+#password-strength {
+    display:none;
+    background: #f1f1f1;
+    color: #000;
+    position: relative;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+#password-strength p {
+    padding: 10px 35px;
+    font-size: 18px;
+    margin-bottom: -1em;
+    margin-top: 0em;
+}
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {color: green;}
+
+.valid:before {
+	font-family: FontAwesome;
+    position: relative;
+    left: -35px;
+    content: "\f00c";
+}
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+.invalid {
+    color: red;
+}
+
+.invalid:before {
+	font-family: FontAwesome;
+    position: relative;
+    left: -35px;
+    content: "\f00d";
+}
+
+/* Responsive layout - when the screen is less than 650px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 650px) {
+  .col {
+    width: 100%;
+    margin-top: 0;
+  }
+  /* hide the vertical line */
+  .vl {display: none;}
+  /* show the hidden text on small screens */
+  .hide-md-lg {
+    display: block;
+    text-align: center;
+  }
+}
+/* Style all input fields */
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+}
+
+/* Customize the label (the container) */
+.container-togglepassword {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container-togglepassword input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+#show-toggle {
+	  font-size: 15px;
+	  font-weight: 500;
+}
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container-togglepassword input ~ .checkmark {background-color: #ccc;}
+
+/* When the checkbox is checked, add a blue background */
+.container-togglepassword input:checked ~ .checkmark {background-color: #2196F3;}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container-togglepassword input:checked ~ .checkmark:after {display: block;}
+
+/* Style the checkmark/indicator */
+.container-togglepassword .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+button, .cancelbtn a {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+button:hover {opacity:1;}
+
+/* Extra styles for the cancel button */
+.cancelbtn, .cancelbtn a {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+    width: 100%;
+  }
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.unique-name {background-color: chartreuse !important;}
+.unique-name:after {
+	background: url(images/comment-author.gif) no-repeat scroll 7px 7px;
+	padding-left:30px;
+	    font-family: FontAwesome;
+    position: relative;
+    left: -35px;
+    content: "\f577";
+}
+.redundant-name {background-color: tomato !important;}
+.redundant-name:before {
+    font-family: FontAwesome;
+    position: relative;
+    left: -35px;
+    content: "\f2f0";
+}
+#hide-show-passwword, .delete_row, li i.shopping, #go_back {cursor: pointer;}
+
+/* Style the form */
+#regForm {
+  background-color: #ffffff;
+  margin: 100px auto;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 18px;
+  width: 70px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 30%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #4CAF50;
+}
+
+#user_profile div.address {
+	float: right;
+}
+#user_profile div.profile {
+    float: left;
+    clear: none;
+}
+#user_profile div.contact {
+    float: left;
+}
+.clearfloat {
+	clear: both;
+}
+#user_profile h3 {
+	color: blue;
+}
+
+.cart {
+    background-color: #d3d7cf;
+	display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+#shopping_cart {
+    background-color: #d3d7cf;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+.cart .thumbnail {
+	background-color: #f3f3f3;
+    flex: 1 1 auto;
+    max-width: 30%;
+}
+@media screen and (max-width: 600px) {
+  .cart .thumbnail {
+    flex: 1 1 auto;
+    max-width: 49%;
+
+    }
+}
+@media screen and (max-width: 400px) {
+  .cart .thumbnail {
+    flex: 1 2 auto;
+    max-width: 100%;
+
+    }
+}
+
+.topleft, .topright {
+	cursor: pointer;
+	position: relative;
+    top:50px;
+}
+.topleft {
+	left:4;
+}
+.topright {
+	right: 4;
+}
+.shopping, .shopping-empty {
+	padding: 20px 40px 0 0;
+}
+.shopping[data-items]:after{
+  position:absolute;
+  left:20%;
+  top:1%;
+  content: attr(data-items);
+  font-size:50%;
+  padding:.6em;
+  border-radius:999px;
+  line-height:.75em;
+  color: white;
+  background:rgba(255,0,0,.85);
+  text-align:center;
+  min-width:2em;
+  font-weight:bold;
+}
+@media screen and (max-width: 800px) {
+  .cart {
+     justify-content: space-around;
+  }
+}
+@media screen and (max-width: 400px) {
+  .cart {
+      flex-direction: column;
+  }
+}
+
+.adminHeader {
+    background-color: #fce94f;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    flex: 1 1 auto;
+}
+.adminHeader button {
+  background-color: #8ae234;
+  color: blue;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+.adminHeader button:hover {opacity:1;}
+
+
+input.editable {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 24px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #a40000;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #4e9a06;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 30px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+#get_image img{
+  max-width:180px;
+}
+#get_image input[type=file]{
+	padding:10px;
+}
+#shopping_main_header {
+	position: relative;
+    left: 150px;
+
+}
+#shopping_cart {
+    background-color: #f3f3f3;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    flex-flow: row wrap-reverse;
+    justify-content: space-between;
+    flex: 1 1 40%;
+}
+#customer_part {
+	background-color: #eeeeec;
+	border-radius: 25px;
+    box-shadow: 10px 10px 2px grey;
+	padding: 10px 30px 10px 30px;
+	border-style: solid;
+    border-width: 2px;
+    margin: 10px 30px 10px 10px;
+}
+#customer_part h3 {
+	color: white;
+	text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+}
+#customer_part p {
+	position: relative;
+    left: 20px;
+}
+#customer_part .card_code {
+	font-size: 140%;
+	text-align: center;
+    text-shadow: 0 0 3px #FF0000;
+}
+#customer_part .card_validity {
+    position: relative;
+    left: 20px;
+    padding; 5px 0 5px 0;
+}
+#customer_part .validity_header {
+     font-size: 70%;
+}
+#customer_part .validity_date {
+     font-size: 110%;
+     font-weight: 800;
+}
+#customer_part .card_owner {
+    float: left;
+    font-size: 120%;
+}
+#customer_part .card_type {
+    float: right;
+    font-weight: 700;
+}
+#items_part {
+    background-color: #d3d7cf;
+    border-radius: 25px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    flex-flow: column;
+    justify-content: space-around;
+    flex: 1 1 50%;
+
+}
+.ordered_item {
+	background-color: #fbfbda;
+    box-shadow: 10px 10px 2px grey;
+    margin: 10px 20px 10px 30px;
+    border-radius: 25px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    flex-flow: row;
+    flex: 1 1 100%;
+}
+#paying_totals {
+    background-color: #eeeeec;
+    box-shadow: 10px 10px 2px grey;
+    margin: 10px 20px 10px 30px;
+    border-radius: 25px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    flex-flow: row;
+    justify-content: space-around;
+    flex: 1 1 100%;
+}
+#paying_totals th, #paying_totals td {
+	text-align: right;
+}
+#grand_totals_field {
+	font-weight: 900;
+	font-size: 140%;
+	color: blue;
+}
+#paying_totals tbody td input {
+    padding: 0;
+    margin: 5px 10px 0 10px;
+    border:0;
+    outline: 0;
+    text-align: right;
+    max-width: 50%;
+}
+
+#items_part h3 {
+	padding: 5px 0 10px 20px;
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 5px darkblue;
+}
+
+#paying_part {
+    background-color: #eeeeec;
+    box-shadow: 10px 10px 2px grey;
+    margin: 10px 20px 10px 30px;
+    border-radius: 25px;
+    max-height: 20%
+}
+#condition_text {
+	margin: 0 0 0 10px;
+    font-size: 90%;
+    font-weight: 300;
+}
+#pay_confirm {
+  width: 80%;
+  padding: 2px;
+  border: none;
+  border-radius: 4px;
+  margin: 0;
+  opacity: 0.85;
+  display: inline-block;
+  font-size: 90%;
+  line-height: 150%;
+  text-decoration: none; /* remove underline from anchors */
+}
+.item_name {
+    margin: 10px 20px 10px 30px;
+    font: 150% arial, sans-serif;
+    font-weight: 900;
+}
+.purchase_header {
+	margin: 0 0 0 0;
+    font: 75% times, serif;
+    font-weight: 600;
+}
+.purchasing_price_details tbody td input {
+	padding: 0;
+	margin: 0;
+	border:0;
+	outline: 0;
+	text-align: right;
+}
+.purchasing_price_details table td {
+	text-align: right;
+}
+input:read-only {
+    background-color: transparent;
+}
+
+
