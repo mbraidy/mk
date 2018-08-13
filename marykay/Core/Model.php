@@ -12,10 +12,6 @@ use App\Config;
  */
 abstract class Model
 {
-//     protected static function rules()
-//     {
-//     }
-
     /**
      * Get the PDO database connection
      *
@@ -35,48 +31,55 @@ abstract class Model
 
         return $db;
     }
-//     protected static function validate() {
-//         foreach ($this->rules() as $rule) {
-//             switch ($rule[1]) {
-//                 case 'required':
-//                     foreach ($rule[0] as $attr) {
-//                         if (!isset($this->$attr)) return "{$attr} is not defined";
-//                     }
-//                     break;
-//                 case 'integer':
-//                     foreach ($rule[0] as $attr) {
-//                         if (!is_numeric($this->$attr)) return "{$attr} is not a number";
-//                     }
-//                     break;
-//                 case 'email':
-//                     foreach ($rule[0] as $attr) {
-//                         $valid = true;
-//                         $this->$attr = strtolower($this->$attr);
-//                         if ( strpos($this->$attr, '@') ) {
-//                             $split = explode('@', $this->$attr);
-//                             $valid = (strpos($split['1'], '.') );
-//                         }
-//                         else {
-//                             $valid = false;
-//                         }
-//                         if (!$valid) return "{$attr} is not a valid email";
-//                     }
+    protected static function validate($data, $rules)
+    {
+        $message = "";
+        foreach ($rules as $rule) {
+            switch ($rule[1]) {
+                case 'required':
+                    foreach ($rule[0] as $attr) {
+                        if (!isset($data[$attr])) $message .= "{$attr} is not defined";
+                    }
+                    break;
+                case 'integer':
+                    foreach ($rule[0] as $attr) {
+                        if (!is_numeric($data[$attr])) $message .= "{$attr} is not a number";
+                    }
+                    break;
+                case 'email':
+                    foreach ($rule[0] as $attr) {
+                        $valid = true;
+                        $data[$attr] = strtolower($data[$attr]);
+                        if ( strpos($data[$attr], '@') ) {
+                            $split = explode('@', $data[$attr]);
+                            $valid = (strpos($split['1'], '.') );
+                        }
+                        else {
+                            $valid = false;
+                        }
+                        if (!$valid) $message .= "{$attr} is not a valid email";
+                    }
 
-//                     break;
-//                 case 'string':
-//                     foreach ($rule[0] as $attr) {
-//                         $this->$attr = (string)$this->$attr;
-//                         if (isset($rule['max'])) {
-//                             if (strlen( $this->$attr) > $rule['max']) return "{$attr} should be maximum {$rule['max']} characters long";
-//                         }
-//                         if (isset($rule['min'])) {
-//                             if (strlen( $this->$attr) < $rule['min']) return "{$attr} should be minimum {$rule['min']} characters long";
-//                         }
-//                     }
-//                     break;
-//             }
-//         }
-//         return true;
-//     }
-
+                    break;
+                case 'string':
+                    foreach ($rule[0] as $attr) {
+                        $data[$attr] = (string)$data[$attr];
+                        if (isset($rule['max'])) {
+                            if (strlen( $data[$attr]) > $rule['max']) $message .= "{$attr} should be maximum {$rule['max']} characters long";
+                        }
+                        if (isset($rule['min'])) {
+                            if (strlen( $data[$attr]) < $rule['min']) $message .= "{$attr} should be minimum {$rule['min']} characters long";
+                        }
+                        if (isset($rule['len'])) {
+                            if (strlen( $data[$attr]) == $rule['len']) $message .= "{$attr} should be excactly {$rule['len']} characters long";
+                        }
+                    }
+                    break;
+                case 'safe':
+                    break;
+                default:
+            }
+        }
+        return ($message=="")?'Success':$message;
+    }
 }

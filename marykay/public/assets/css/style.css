@@ -672,5 +672,26 @@ input:checked + .slider:before {
 input:read-only {
     background-color: transparent;
 }
-
-
+ div#profile_update_controls {
+    margin-top:40px;
+ }
+div #navigation  {
+	float: right;
+	display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    flex: 1 1 50%;
+}
+div #navigation  button {
+	border-radius: 10px;
+	width: 80px;
+	margin: 0 10px 0 10px;
+	height: 40px;
+	padding: 0;
+}
+div#breadcumbs {
+	text-align:center;
+}

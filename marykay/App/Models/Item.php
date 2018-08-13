@@ -45,56 +45,6 @@ class Item extends \Core\Model
             [['title'], 'string', 'max' =>100],
         ];
     }
-    private function validate() {
-        $message = "";
-        foreach ($this->rules() as $rule) {
-            switch ($rule[1]) {
-                case 'required':
-                    foreach ($rule[0] as $attr) {
-                        if (!isset($this->$attr)) $message .= "{$attr} is not defined";
-                    }
-                    break;
-                case 'integer':
-                    foreach ($rule[0] as $attr) {
-                        if (!is_numeric($this->$attr)) $message .= "{$attr} is not a number";
-                    }
-                    break;
-                case 'email':
-                    foreach ($rule[0] as $attr) {
-                        $valid = true;
-                        $this->$attr = strtolower($this->$attr);
-                        if ( strpos($this->$attr, '@') ) {
-                            $split = explode('@', $this->$attr);
-                            $valid = (strpos($split['1'], '.') );
-                        }
-                        else {
-                            $valid = false;
-                        }
-                        if (!$valid) $message .= "{$attr} is not a valid email";
-                    }
-
-                    break;
-                case 'string':
-                    foreach ($rule[0] as $attr) {
-                        $this->$attr = (string)$this->$attr;
-                        if (isset($rule['max'])) {
-                            if (strlen( $this->$attr) > $rule['max']) $message .= "{$attr} should be maximum {$rule['max']} characters long";
-                        }
-                        if (isset($rule['min'])) {
-                            if (strlen( $this->$attr) < $rule['min']) $message .= "{$attr} should be minimum {$rule['min']} characters long";
-                        }
-                        if (isset($rule['len'])) {
-                            if (strlen( $this->$attr) == $rule['len']) $message .= "{$attr} should be excactly {$rule['len']} characters long";
-                        }
-                    }
-                    break;
-                case 'safe':
-                    break;
-                default:
-            }
-        }
-        return ($message=="")?'Success':$message;
-    }
     public function load() {
         $this->name = $_POST['name'];
         $this->alt = $_POST['alt'];
@@ -107,54 +57,9 @@ class Item extends \Core\Model
         $this->active = ($_POST['active']=='on')?1:0;
         return;
     }
-    private function validateOne($field, $value) : string {
-        $message = "";
-        foreach ($this->rules() as $rule) {
-            switch ($rule[1]) {
-                case 'required':
-                    if (in_array($field, $rule[0])) {
-                        if (!isset($value)) $message .= "{$field} is not defined";
-                    }
-                    break;
-                case 'integer':
-                    if (in_array($field, $rule[0])) {
-                        if (!is_numeric($value)) $message .= "{$field} is not a number.";
-                    }
-                    break;
-                case 'email':
-                    if (in_array($field, $rule[0])) {
-                        $valid = true;
-                        $field= strtolower($value);
-                        if ( strpos($field, '@') ) {
-                            $split = explode('@', $value);
-                            $valid = (strpos($split['1'], '.') );
-                        }
-                        else {
-                            $valid = false;
-                        }
-                        if (!$valid) $message .= "{$field} is not a valid email";
-                    }
-
-                    break;
-                case 'string':
-                    if (in_array($field, $rule[0])) {
-                        $value = (string)$value;
-                        if (isset($rule['max'])) {
-                            if (strlen( $value) > $rule['max']) $message .= "{$field} should be maximum {$rule['max']} characters long";
-                        }
-                        if (isset($rule['min'])) {
-                            if (strlen( $value) < $rule['min']) $message .= "{$field} should be minimum {$rule['min']} characters long";
-                        }
-                    }
-                    break;
-            }
-        }
-        return ($message=="")?'Success':$message;
-    }
-
     public function update($product_id)
     {
-        if (!isset($product_id) || !is_numeric($product_id) || $this->validate($_POST)!==true) return false;
+        if (!isset($product_id) || !is_numeric($product_id) || $this->validate($_POST, $this->rules())!==true) return false;
 
         $db = static::getDB();
         $productQuery = $db->prepare("SELECT id FROM purchase_item WHERE id = ?");
@@ -184,7 +89,7 @@ class Item extends \Core\Model
     {
         if (!isset($product_id) || !is_numeric($product_id)) return false;
         if (empty($field) || !isset($value)) return false;
-        $message = self::validateOne($field, $value);
+        $message = parent::validate([$field => $value], $this->rules());
         if ($message!="Success") return $message;
 
         $db = static::getDB();
@@ -206,7 +111,7 @@ class Item extends \Core\Model
     }
     public function insert()
     {
-        $message = $this->validate($_POST);
+        $message = $this->validate($_POST, $this->rules());
         if ($message!=="Success") return message;
 
         $db = static::getDB();

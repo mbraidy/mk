@@ -109,19 +109,18 @@
     	</tbody>
     </table>
     </div>
-
-      <div style="float:right;">
-        <button type="button" id="prevBtn">Previous</button>
-        <button type="button" id="nextBtn">Next</button>
-      </div>
-
-    <!-- Circles which indicates the steps of the form: -->
-    <div style="text-align:center;margin-top:40px;">
-      <span class="step">Profile</span>
-      <span class="step">Contact</span>
-      <span class="step">D.o.B</span>
-      <span class="step">Address</span>
-      <span class="step">Payment</span>
+	<div id="profile_update_controls">
+        <div id="navigation">
+            <button type="button" id="prevBtn">Previous</button>
+            <button type="button" id="nextBtn">Next</button>
+        </div>
+        <div id="breadcumbs">
+          <span class="step">Profile</span>
+          <span class="step">Contact</span>
+          <span class="step">D.o.B</span>
+          <span class="step">Address</span>
+          <span class="step">Payment</span>
+        </div>
     </div>
 
     </form>

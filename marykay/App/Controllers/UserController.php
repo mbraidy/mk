@@ -135,13 +135,24 @@ class UserController extends \Core\Controller
              ]);
          } else {
              $profile->load();
-             if ($profile->save() ) {
+             if ($profile->save()=="Success" ) {
                  View::redirect('/user/profile', [
+                     'logged' => true,
                      'id' => $_SESSION['ID']
                  ]);
              } else {
+                 $address = Address::getAddress($profile->userID);
+                 $cards = Card::getCards($profile->userID);
+                 $cardTypes = CardType::asOptions();
                  View::render('User/update.php', [
-                     'profile' => $profile
+                     'profile' => $profile,
+                     'address' => $address,
+                     'cards' => $cards,
+                     'cardTypes' => $cardTypes,
+                     'cities' => City::asOptions(),
+                     'countries' => Country::asOptions(),
+                     'username' => $_SESSION['USER'],
+                     'logged' => true,
                  ]);
              }
          }
